@@ -1,21 +1,38 @@
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "Manufacture")
 
 // POJO class
 public class Manufacture {
 
-    @Id @Column(name = "id") private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
 
-    @Column(name = "name") private String name;
+    @Column(name = "name", length = 128)
+    private String name;
+
 
     @Column(name = "location") private String location;
 
-    @Column(name = "employee") private int employee;
+    @Column(name = "employee", nullable = false) private int employee;
+    @OneToMany(mappedBy = "manufacture", fetch = FetchType.EAGER)
+    private List<Phone> phones;
+
+    public Manufacture(String name, String location, int employee) {
+        this.name = name;
+        this.location = location;
+        this.employee = employee;
+    }
+
+    public Manufacture() {
+
+    }
 
     public String getName() {
         return name;
@@ -25,7 +42,7 @@ public class Manufacture {
         return employee;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -37,7 +54,7 @@ public class Manufacture {
         this.name = name;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -47,5 +64,8 @@ public class Manufacture {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 }

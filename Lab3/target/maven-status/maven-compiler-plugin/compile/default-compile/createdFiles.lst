@@ -1,4 +1,9 @@
 Program.class
+PhoneDAO.class
+Manufacture_.class
+Repository.class
+ManufactureDAO.class
+Phone_.class
+utils\HibernateUtils.class
 Phone.class
-HibernateUtils.class
 Manufacture.class

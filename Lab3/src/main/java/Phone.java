@@ -1,26 +1,23 @@
-import java.util.Date;
-
 import javax.persistence.*;
-
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name = "phone")
-public class Phone {
+    @Entity
+    @Table(name = "phone")
+    public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 128)
     private String name;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private int price;
 
-    @Column(name = "color")
+    @Column(name = "color", nullable = false)
     private String color;
 
     @Column(name = "country")
@@ -28,6 +25,7 @@ public class Phone {
 
     @Column(name = "quantity")
     private int quantity;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacture_id")
     private Manufacture manufacture;
@@ -36,15 +34,13 @@ public class Phone {
 
     }
 
-    public Phone(String id, String name, int price, String color, String country, int quantity) {
-        this.id = id;
+    public Phone(String name, int price, String color, String country, int quantity) {
         this.name = name;
         this.price = price;
         this.color = color;
         this.country = country;
         this.quantity = quantity;
     }
-
     public int getPrice() {
         return price;
     }
@@ -61,7 +57,7 @@ public class Phone {
         return country;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
@@ -77,7 +73,7 @@ public class Phone {
         this.country = country;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
