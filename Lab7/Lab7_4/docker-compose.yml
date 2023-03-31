@@ -1,0 +1,12 @@
+version: '3'
+services:
+  student-management-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 051202duy
+      MYSQL_DATABASE: StudentManagement
+      MYSQL_USER: duy
+      MYSQL_PASSWORD: 051202duy
+    ports:
+      - "3306:3306"
