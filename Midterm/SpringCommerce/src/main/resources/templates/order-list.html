@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orders</title>
+</head>
+<body>
+<h1>Orders</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Customer Name</th>
+        <th>Customer Address</th>
+        <th>Created At</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.getId()}"></td>
+        <td th:text="${order.getCustomerName()}"></td>
+        <td th:text="${order.getCustomerAddress()}"></td>
+        <td th:text="${order.getCreatedAt()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

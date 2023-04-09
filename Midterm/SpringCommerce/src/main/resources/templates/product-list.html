@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Product List</title>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" th:href="@{/static/style.css}">
+  <!-- Bootstrap CSS from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"crossorigin="anonymous">
+
+</head>
+
+<body>
+<h1>Product List</h1>
+
+<form action="#" method="get">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="category">Category</label>
+      <select id="category" name="category" class="form-control">
+        <option value="">All</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="books">Books</option>
+        <option value="Footwear">Footwear</option>
+        <option value="books">Books</option>
+
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="minPrice">Min Price</label>
+      <input type="number" class="form-control" id="minPrice" name="minPrice">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="maxPrice">Max Price</label>
+      <input type="number" class="form-control" id="maxPrice" name="maxPrice">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="brand">Brand</label>
+      <select id="brand" name="brand" class="form-control">
+        <option value="">All</option>
+        <option value="Nike">Nike</option>
+        <option value="Adidas">Adidas</option>
+        <option value="Sony">Sony</option>
+        <option value="North Face">North Face</option>
+        <option value="Lululemon">Lululemon</option>
+        <option value="LV">Lululemon</option>
+
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="color">Color</label>
+      <select id="color" name="color" class="form-control">
+        <option value="">All</option>
+        <option value="Red">Red</option>
+        <option value="Pink">Pink</option>
+        <option value="Blue">Blue</option>
+        <option value="Green">Green</option>
+        <option value="Orange">Orange</option>
+        <option value="Black">Red</option>
+        <option value="White">Red</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+<hr>
+
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Category</th>
+    <th>Brand</th>
+    <th>Color</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="product : ${products}">
+    <td th:text="${product.getId()}"></td>
+    <td th:text="${product.getName()}"></td>
+    <td th:text="${product.getPrice()}"></td>
+    <td th:text="${product.getCategory()}"></td>
+    <td th:text="${product.getBrand()}"></td>
+    <td th:text="${product.getColor()}"></td>
+    <td>
+      <form action="/products" method="post">
+        <input type="hidden" name="productId" th:value="${product.getId()}" />
+        <input type="hidden" name="cartId" value="1" />
+        <input type="number" name="quantity" value="1" min="1" max="10" />
+        <button id="add-to-cart" type="submit" class="btn btn-primary">Add to Cart</button>
+     </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/orders/list}">
+  <button>Check out orders</button>
+</a>
+
+<a th:href="@{/carts/cartItems}">
+  <button>Check out carts</button>
+</a>
+
+<!-- Bootstrap JS from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmIaVOQhTu/6yyR65" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-DZlM/CmJmdzxU9KP9J6o7U6kYZnNwNbO9sTQBauWZmI/FpzzjksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  // Get all the add-to-cart buttons
+  const addToCartButtons = document.querySelectorAll('#add-to-cart');
+
+  // Loop through the buttons and attach a click event listener to each one
+  addToCartButtons.forEach(button => {
+    button.addEventListener("click", function(event) {
+      event.preventDefault(); // prevent the form from submitting
+
+      // Get the form data
+      const productId = button.closest('tr').querySelector('input[name="productId"]').value;
+      const cartId = button.closest('tr').querySelector('input[name="cartId"]').value;
+      const quantity = button.closest('tr').querySelector('input[name="quantity"]').value;
+
+      // Make the AJAX request to add the product to the cart
+      $.post("/products", {cartId: cartId, productId: productId, quantity: quantity}, function() {
+        // Display the success message
+        alert("Product added to cart successfully");
+      }).fail(function() {
+        alert("Failed to add product to cart.");
+      });
+    });
+  });
+</script>
+
+
+</body>
+
+</html>
