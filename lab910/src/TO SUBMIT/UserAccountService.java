@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -28,9 +29,10 @@ public class UserAccountService {
         return userAccountRepository.findByEmailAndPassword(email, password);
     }
 
+
     private final List<UserAccount> APPLICATION_USERS = Arrays.asList(
-            new UserAccount("admin@gmail.com", "123", "Admin", "User"),
-            new UserAccount("user@gmail.com", "456", "Regular", "User")
+            new UserAccount("admin@gmail.com", new BCryptPasswordEncoder().encode("123"), "Admin", "User"),
+            new UserAccount("user@gmail.com", new BCryptPasswordEncoder().encode("456"), "Regular", "User")
     );
     public UserDetails findUserByEmail(String email){
         UserAccount user = APPLICATION_USERS.stream()
