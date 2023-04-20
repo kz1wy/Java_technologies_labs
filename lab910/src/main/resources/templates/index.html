@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lab 9 10</title>
+</head>
+<body>
+<h1>Lab 9 10 test</h1>
+<p>Click the links below to access the API:</p>
+<p>just kidding, use post man or curl tool please :^)</p>
+<ul>
+    <li><a th:href="@{/api/account/register}" th:method="POST">Register</a></li>
+    <li><a th:href="@{/api/account/login}" th:method="POST">Login</a></li>
+    <li><a th:href="@{/api/products}" th:method="GET">Products</a></li>
+    <li><a th:href="@{/api/products/1}" th:method="GET">Product 1</a></li>
+    <li><a th:href="@{/api/orders}" th:method="GET">Orders</a></li>
+    <li><a th:href="@{/api/orders/1}" th:method="GET">Order 1</a></li>
+</ul>
+</body>
+</html>
