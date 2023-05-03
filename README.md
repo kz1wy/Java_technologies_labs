@@ -1,2 +1,3 @@
-TO SUBMIT directory in every Lab folder contains Java, pom.xml and some necessary files, view this for easier grading.
-Thank you.
+JAVA technologies materials, SPRING BOOT (v3.5), etc... with overall score 98.7.
+
+Learn about how to create RESTFUL API, SPRING SECURITY, THYMELEAF, etc...
